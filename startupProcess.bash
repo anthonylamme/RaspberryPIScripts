@@ -1,6 +1,7 @@
 #!/bin/bash
 newHome=/home/pi/scripts
-
+url1=git@github.com:anthonylamme/Pick2Light.git
+url2=git@github.com:anthonylamme/RoboticArmCode.git
 echo "Starting Script"
 
 echo "Hi, $USER! starting network"
@@ -13,6 +14,8 @@ sudo apt-get -y install leafpad
 sudo apt-get -y install vim
 sudo apt-get -y install arduino
 sudo apt-get -y install ntpdate
+sudo apt-get -y install nodejs
+
 ~
 ~
 ~
