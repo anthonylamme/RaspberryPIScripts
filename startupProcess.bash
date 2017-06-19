@@ -15,7 +15,8 @@ sudo apt-get -y install vim
 sudo apt-get -y install arduino
 sudo apt-get -y install ntpdate
 sudo apt-get -y install nodejs
-
+sudo git clone url1
+sudo git clone url2
 ~
 ~
 ~
