@@ -1,8 +1,5 @@
 #!/bin/bash
 newHome=/home/pi/scripts
-url1=https://github.com/anthonylamme/RaspberryPIScripts
-url2=https://github.com/anthonylamme/Pick2Light
-url3=https://github.com/anthonylamme/RoboticArmCode
 echo "Starting Script"
 
 echo "Hi, $USER! starting network"
@@ -19,12 +16,12 @@ sudo apt-get -y install ntpdate
 sudo apt-get -y install nodejs
 
 echo "Hi, $USER! starting folder"
-mkdir Scripts
-cd Scripts
+mkdir /home/pi/Scripts
+cd /home/pi/Scripts
 
-sudo git clone url1
-sudo git clone url2
-sudo git clone url3
+sudo git clone https://github.com/anthonylamme/RaspberryPIScripts
+sudo git clone https://github.com/anthonylamme/Pick2Light
+sudo git clone https://github.com/anthonylamme/RoboticArmCode
 ~
 ~
 ~
