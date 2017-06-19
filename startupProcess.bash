@@ -13,6 +13,7 @@ echo "Hi, $USER! starting network"
 echo "Hi, $USER! starting install"
 sudo apt-get -y install leafpad
 sudo apt-get -y install vim
+sudo apt-get -y install espeak
 sudo apt-get -y install arduino
 sudo apt-get -y install ntpdate
 sudo apt-get -y install nodejs
