@@ -7,7 +7,11 @@ echo "Hi, $USER! starting network"
 
 
 # install programs
-echo "Hi, $USER! starting install"
+echo "Hi, $USER! starting UPGRADE"
+
+sudo apt-get update
+sudo apt-get dist upgrade
+echo "PROGRAMMING"
 sudo apt-get -y install leafpad
 sudo apt-get -y install vim
 sudo apt-get -y install espeak
@@ -19,12 +23,9 @@ echo "Hi, $USER! starting folder"
 mkdir /home/pi/Scripts
 cd /home/pi/Scripts
 
-sudo git clone https://github.com/anthonylamme/RaspberryPIScripts
-sudo git clone https://github.com/anthonylamme/Pick2Light
-sudo git clone https://github.com/anthonylamme/RoboticArmCode
-~
-~
-~
+git clone https://github.com/anthonylamme//RaspberryPIScripts.git
+git clone https://github.com/anthonylamme/Pick2Light.git
+git clone https://github.com/anthonylamme/RoboticArmCode.git
+
 echo "Finished"
-sleep 20
 sudo reboot
