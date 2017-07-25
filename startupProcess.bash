@@ -20,6 +20,8 @@ sudo apt-get -y install ntpdate
 sudo apt-get -y install nodejs
 sudo apt-get -y install apache2 apache2-doc apache2-utils
 sudo apt-get -y install libapache2-mod-php5 php5 php-pear php5-xcache
+sudo apt-get -y install php5-mysql
+sudo apt-get install mysql-server mysql-client
 sudo apt-get -y install screen -y
 sudo pip install slackclient
 
