@@ -5,10 +5,8 @@ echo "Starting Script"
 echo "Hi, $USER! starting network"
 #networking
 
-
 # install programs
 echo "Hi, $USER! starting UPGRADE"
-
 sudo apt-get update
 
 echo "PROGRAMMING"
@@ -45,6 +43,23 @@ git clone https://github.com/anthonylamme//RaspberryPIScripts.git
 git clone https://github.com/anthonylamme/Pick2Light.git
 git clone https://github.com/anthonylamme/RoboticArmCode.git
 wget https://raw.githubusercontent.com/tbird20d/grabserial/master/grabserial grabserial
+
+echo "Which Project do you want to run?"
+select pr in "RobotArm" "Pick2Light" "Standard"; do
+    case $pr in
+      RobotArm) 
+        cp /home/pi/Scripts/RoboticsArmCode/RpiAddition/Bash/SerialMond.bash /ect/init.d
+        chmod +x /ect/init.d/SerialMond.bash
+        sudo update-rc.d /ect/init.d/SerialMond.bash
+        break;; 
+      Pick2Light) 
+        cp /home/pi/Scripts/Pick2Light/RaspberryPiCode/Pick2Light.bash /ect/init.d
+        chmod +x /ect/init.d/Pick2Light.bash
+        sudo update-rc.d /ect/init.d/Pick2Light.bash
+        break;;
+      Standard) exit;;
+    esac
+done
 
 echo "Finished"
 sudo reboot
