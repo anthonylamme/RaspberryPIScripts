@@ -48,7 +48,7 @@ echo "Which Project do you want to run?"
 select pr in "RobotArm" "Pick2Light" "Standard"; do
     case $pr in
       RobotArm) 
-        cp /home/pi/Scripts/RoboticsArmCode/RpiAddition/Bash/SerialMond.bash /ect/init.d
+        cp /home/pi/Scripts/RoboticArmCode/RpiAddition/Bash/SerialMond.bash /ect/init.d
         chmod +x /ect/init.d/SerialMond.bash
         sudo update-rc.d /ect/init.d/SerialMond.bash
         break;; 
