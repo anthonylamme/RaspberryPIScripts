@@ -39,7 +39,7 @@ echo "Hi, $USER! starting folder"
 mkdir /home/pi/Scripts
 cd /home/pi/Scripts
 
-git clone https://github.com/anthonylamme//RaspberryPIScripts.git
+git clone https://github.com/anthonylamme/RaspberryPIScripts.git
 git clone https://github.com/anthonylamme/Pick2Light.git
 git clone https://github.com/anthonylamme/RoboticArmCode.git
 wget https://raw.githubusercontent.com/tbird20d/grabserial/master/grabserial grabserial
@@ -48,18 +48,17 @@ echo "Which Project do you want to run?"
 select pr in "RobotArm" "Pick2Light" "Standard"; do
     case $pr in
       RobotArm) 
-        sudo cp /home/pi/Scripts/RoboticArmCode/RpiAddition/Bash/SerialMond.bash /ect/init.d
-        sudo chmod +x /ect/init.d/SerialMond.bash
-        sudo update-rc.d /ect/init.d/SerialMond.bash
+        echo "Be the Arm"
         break;; 
       Pick2Light) 
-        cp /home/pi/Scripts/Pick2Light/RaspberryPiCode/Pick2Light.bash /ect/init.d
-        chmod +x /ect/init.d/Pick2Light.bash
-        sudo update-rc.d /ect/init.d/Pick2Light.bash
+        echo "Pick the Light"
         break;;
-      Standard) exit;;
+      Standard) 
+	echo "Get the Scrap"
+	sudo echo "echo "Loading starting programs"" >> /home/pi/.bashrc
+	sudo echo "sudo bash /home/pi/Scripts/SlackBot/Slack.bash" >> /home/pi/.bashrc
+	exit;;
     esac
 done
 
 echo "Finished"
-sudo reboot
