@@ -10,6 +10,8 @@ import time
 import json
 import psutil
 import BotOps as OPS
+import requests
+
 
 from slackclient import SlackClient
 
@@ -17,7 +19,7 @@ file_obj=open('/home/pi/P2LightData/Tokens/Token.txt','r')
 Number=file_obj.readline().rstrip('\n')
 myName=file_obj.readline().rstrip('\n')
 P2L_Token=file_obj.readline().rstrip('\n')
-
+url = 'https://slack-files.com/T0JU09BGC-F0UD6SJ21-a762ad74d3'
 file_obj.close()
 print myName
 print P2L_Token
@@ -38,8 +40,9 @@ if slack_client.rtm_connect():
     
     while True:
         for message in slack_client.rtm_read():
-            if 'attachments' in message and message['text'].startswith("<@%s>"%slack_user_id):
+            if 'attachment' in message and message['text'].startswith("<@%s>"%slack_user_id):
                 print "Attachment received: %s" % json.dumps(message, indent=2)
+                requests.get(url, headers={'Authorization': 'Bearer %s' % P2L_Token})
                 
                 slack_client.api_call(
                         "chat.postMessage",
