@@ -40,15 +40,6 @@ if slack_client.rtm_connect():
     
     while True:
         for message in slack_client.rtm_read():
-            if 'attachment' in message and message['text'].startswith("<@%s>"%slack_user_id):
-                print "Attachment received: %s" % json.dumps(message, indent=2)
-                requests.get(url, headers={'Authorization': 'Bearer %s' % P2L_Token})
-                
-                slack_client.api_call(
-                        "chat.postMessage",
-                        channel=message['channel'],
-                        text="\n I can't read",
-                        as_user=True)
                     
             if 'text' in message and message['text'].startswith("<@%s>"%slack_user_id):
                 
@@ -168,6 +159,14 @@ if slack_client.rtm_connect():
                         channel=message['channel'],
                         text="\n My Cell number is %s"%Number,
                         as_user=True)
+                if re.match(r'.*(recieved).*',message_text,re.IGNORECASE):
+
+                    slack_client.api_call(
+                        "chat.postMessage",
+                        channel=message['channel'],
+                        text="\n checking",
+                        as_user=True)
+                    
 
                     
             time.sleep(1)
