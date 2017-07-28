@@ -34,6 +34,12 @@ sudo apt-get -y install screen -y
 sudo pip install slackclient
 #cmdline tool
 sudo apt-get install moreutils
+sudo apt-get install zip
+
+sudo apt-get install i2c-tools
+sudo apt-get install python-smbus
+
+sudo apt-get install python-dev python-rpi.gpio
 
 echo "Hi, $USER! starting folder"
 mkdir /home/pi/Scripts
@@ -43,6 +49,8 @@ git clone https://github.com/anthonylamme/RaspberryPIScripts.git
 git clone https://github.com/anthonylamme/Pick2Light.git
 git clone https://github.com/anthonylamme/RoboticArmCode.git
 wget https://raw.githubusercontent.com/tbird20d/grabserial/master/grabserial grabserial
+sudo echo "echo "Loading starting programs"" >> /home/pi/.bashrc
+sudo echo "sudo bash /home/pi/Scripts/RaspberryPIScripts/UpdateGit.bash" >> /home/pi/.bashrc
 
 echo "Which Project do you want to run?"
 select pr in "RobotArm" "Pick2Light" "Standard"; do
@@ -51,14 +59,22 @@ select pr in "RobotArm" "Pick2Light" "Standard"; do
         echo "Be the Arm"
         break;; 
       Pick2Light) 
-        echo "Pick the Light"
-        break;;
+        
+	echo "Pick the Light"
+	cd /home/pi/P2LightData
+	cd /home/pi/P2LightData/Tokens
+	cd /home/pi/P2LightData/Data
+
+	sudo echo "sudo bash /home/pi/Scripts/Pick2Light/RaspberryPiCode/Pick2Light.bash" >> /home/pi/.bashrc
+        sudo echo "sudo bash /home/pi/Scripts/SlackBot/Slack.bash" >> /home/pi/.bashrc
+
+	break;;
       Standard) 
 	echo "Get the Scrap"
-	sudo echo "echo "Loading starting programs"" >> /home/pi/.bashrc
 	sudo echo "sudo bash /home/pi/Scripts/SlackBot/Slack.bash" >> /home/pi/.bashrc
-	exit;;
+	break;;
     esac
 done
 
 echo "Finished"
+sudo reboot
