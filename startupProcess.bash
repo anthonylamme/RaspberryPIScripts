@@ -66,12 +66,12 @@ select pr in "RobotArm" "Pick2Light" "Standard"; do
 	cd /home/pi/P2LightData/Data
 
 	sudo echo "sudo bash /home/pi/Scripts/Pick2Light/RaspberryPiCode/Pick2Light.bash" >> /home/pi/.bashrc
-        sudo echo "sudo bash /home/pi/Scripts/SlackBot/Slack.bash" >> /home/pi/.bashrc
+        sudo echo "sudo bash /home/pi/Scripts/RaspberryPIScripts/SlackBot/Slack.bash" >> /home/pi/.bashrc
 
 	break;;
       Standard) 
 	echo "Get the Scrap"
-	sudo echo "sudo bash /home/pi/Scripts/SlackBot/Slack.bash" >> /home/pi/.bashrc
+	sudo echo "sudo bash /home/pi/Scripts/RaspberryPIScripts/SlackBot/Slack.bash" >> /home/pi/.bashrc
 	break;;
     esac
 done
