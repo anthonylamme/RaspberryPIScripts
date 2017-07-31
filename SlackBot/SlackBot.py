@@ -39,9 +39,21 @@ if slack_client.rtm_connect():#connects to slack client
     print "Connected" #sanity check
     slack_client.rtm_send_message('allpis',"%s here"%Number) #will notify all channel that its online
     
-    while True:
-        for message in slack_client.rtm_read(): #for every message in the client while its reading
-                    
+    while True:         
+      for message in slack_client.rtm_read(): #for every message in the client while its reading
+            if 'attachments' in message and message['text'].startswith("<@%s>"%slack_user_id):
+                print "attachment recieved: %s"%json.dumps(message, indent=2)
+                print "attachment recieved: %s"%json.dumps(attachments, indent=2)
+
+                message_text = message['text'].\
+                    split("<@%s>" % slack_user_id)[1].\
+                    strip()#splits message from user name
+                slack_client.api_call(
+                        "chat.postMessage",
+                        channel=message['channel'],
+                        text="\n Can't read File not smart enough",
+                        as_user=True)
+                
             if 'text' in message and message['text'].startswith("<@%s>"%slack_user_id): # if text has the @user id
                 
                 print "Message received: %s" % json.dumps(message, indent=2) #prints json file on cmdline for checking
