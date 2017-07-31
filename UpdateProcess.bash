@@ -1,3 +1,4 @@
+#This Script updates all programs on Raspberry Pi 
 #!/bin/bash
 newHome=/home/pi/Scripts
 
