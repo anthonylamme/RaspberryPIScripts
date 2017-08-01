@@ -41,6 +41,7 @@ sudo apt-get install i2c-tools # enables i2c check tools
 sudo apt-get install python-smbus #turns on the python bus for i2c
 
 sudo apt-get install python-dev python-rpi.gpio #library used for GPIO controll
+sudo easy_install xlsx2csv
 
 echo "Hi, $USER! starting folder"
 mkdir /home/pi/Scripts #makes central folder for repositories
