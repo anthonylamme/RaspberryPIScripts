@@ -66,6 +66,7 @@ select pr in "RobotArm" "Pick2Light" "Standard"; do
 	cd /home/pi/P2LightData
 	cd /home/pi/P2LightData/Tokens
 	cd /home/pi/P2LightData/Data
+	cd /home/pi/P2LightData/JSONData
 
 	sudo echo "sudo bash /home/pi/Scripts/Pick2Light/RaspberryPiCode/Pick2Light.bash" >> /home/pi/.bashrc #allows Pick2Light to run at start u
         sudo echo "sudo bash /home/pi/Scripts/RaspberryPIScripts/SlackBot/Slack.bash" >> /home/pi/.bashrc #allows for Slack Bot to run at start up
