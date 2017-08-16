@@ -12,7 +12,7 @@ import time #pull time data from pi
 import json #handler for JSON files
 import psutil #CPU/Memory utility
 import BotOps as OPS #Custom Library for commands
-import requests #maybe used to pull files from slack to update system
+import requests as req #maybe used to pull files from slack to update system
 
 
 from slackclient import SlackClient #the slack Client Library
@@ -21,8 +21,11 @@ file_obj=open('/home/pi/P2LightData/Tokens/Token.txt','r')
 Number=file_obj.readline().rstrip('\n')
 myName=file_obj.readline().rstrip('\n')
 P2L_Token=file_obj.readline().rstrip('\n')
-url = 'https://slack-files.com/T0JU09BGC-F0UD6SJ21-a762ad74d3'
 file_obj.close()
+
+csv_path='/home/pi/P2LightData/ItemList.csv'
+json_path='/home/pi/P2LightData/JSONData/Order.json'
+
 print myName #sanity check to ensure write information is pulled from file
 print P2L_Token
 
@@ -39,22 +42,58 @@ if slack_client.rtm_connect():#connects to slack client
     print "Connected" #sanity check
     slack_client.rtm_send_message('allpis',"%s here"%Number) #will notify all channel that its online
     
-    while True:         
-      for message in slack_client.rtm_read(): #for every message in the client while its reading
-            if 'attachments' in message and message['text'].startswith("<@%s>"%slack_user_id):
-                print "attachment recieved: %s"%json.dumps(message, indent=2)
-                print "attachment recieved: %s"%json.dumps(attachments, indent=2)
+    while True:
+        for message in slack_client.rtm_read(): #for every message in the client while its reading
 
-                message_text = message['text'].\
-                    split("<@%s>" % slack_user_id)[1].\
-                    strip()#splits message from user name
-                slack_client.api_call(
+            print "Message received: %s" % json.dumps(message, indent=2) #prints json file on cmdline form
+
+            if 'file' in message and 'url_private' in message['file']:
+                print "File received: %s" % json.dumps(message, indent=2)
+                file_info=message['file']['url_private'].strip()
+                file_type=message['file']['filetype'].strip()
+                file_name=message['file']['name'].strip()
+
+                if file_type == 'csv':
+                    file2b=req.get(file_info,headers={'Authorization': 'Bearer %s'%P2L_Token})
+                    with open(csv_path,'wb') as f:
+                        f.write(file2b.content)
+
+                elif file_type == 'xlsx' or file_type == 'xlsm' or file_type == 'xls':
+
+                    file_name=file_name.replace(' ','')
+                    
+                    pathway='/home/pi/P2LightData/%s'%file_name
+                    
+                    print "%s file needs formating"%file_name
+                    
+                    file2b=req.get(file_info,headers={'Authorization': 'Bearer %s'%P2L_Token})
+                    with open(pathway,'wb') as f:
+                        f.write(file2b.content)
+                        
+                    OPS.convertOp(pathway,csv_path)
+
+                elif file_type == 'javascript':
+                    
+                    pathway='/home/pi/P2LightData/JSONData/Order.json'
+                    
+                    file2b=req.get(file_info,headers={'Authorization': 'Bearer %s'%P2L_Token})
+                    with open(pathway,'wb') as f:
+                        f.write(file2b.content)
+                        
+                    slack_client.api_call(
                         "chat.postMessage",
                         channel=message['channel'],
-                        text="\n Can't read File not smart enough",
+                        text="\n Thank you for your order",
+                        as_user=True)
+                else:
+
+                    slack_client.api_call(
+                        "chat.postMessage",
+                        channel=message['channel'],
+                        text="\n I was unable to read file type",
                         as_user=True)
                 
-            if 'text' in message and message['text'].startswith("<@%s>"%slack_user_id): # if text has the @user id
+            if 'text' in message and message['text'].startswith("<@%s>"%slack_user_id): # if text has the @user id:
                 
                 print "Message received: %s" % json.dumps(message, indent=2) #prints json file on cmdline for checking
                 
@@ -183,3 +222,5 @@ if slack_client.rtm_connect():#connects to slack client
 
                     
             time.sleep(1)#wait a second  between messages to give user time to send command
+
+
