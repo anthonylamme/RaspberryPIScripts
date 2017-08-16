@@ -16,4 +16,4 @@ git pull #pulls recent version from gitHub
 cd /home/pi/Scripts/RaspberryPIScripts
 git pull
 
-echo "finished"
+echo "finished at last"
