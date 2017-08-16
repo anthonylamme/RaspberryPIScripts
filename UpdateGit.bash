@@ -13,5 +13,7 @@ cd /home/pi/Scripts/RaspberryPIScripts #change to Rasberry PI Script folder
 git pull #pulls recent version from gitHub
 cd /home/pi/Scripts/RoboticArmCode #change to Robotic Arm Code folder
 git pull #pulls recent version from gitHub
+cd /home/pi/Scripts/RaspberryPIScripts
+git pull
 
 echo "finished"
