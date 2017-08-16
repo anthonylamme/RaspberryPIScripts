@@ -31,11 +31,6 @@ sudo pip install slackclient
 #cmdline tool
 sudo apt-get install moreutils
 
-cd /home/pi/Scripts/Pick2Light
-git pull
-cd /home/pi/Scripts/RaspberryPIScripts
-git pull
-cd /home/pi/Scripts/RoboticArmCode
-git pull
+sudo bash /home/pi/Scripts/RaspberryPIScripts/UpdateGit.bash
 
 echo "finished"
