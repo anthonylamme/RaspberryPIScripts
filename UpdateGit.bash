@@ -16,6 +16,4 @@ git pull #pulls recent version from gitHub
 cd /home/pi/Scripts/RaspberryPIScripts
 git pull
 
-sudo bash /home/pi/Scripts/RaspberryPIScripts/testStarter.bash
-
 echo "finished at last"
