@@ -50,12 +50,14 @@ cd /home/pi/Scripts
 git clone https://github.com/anthonylamme/RaspberryPIScripts.git #general use scripts containing startup,update and git update
 git clone https://github.com/anthonylamme/Pick2Light.git #Pick2Light project programs
 git clone https://github.com/anthonylamme/RoboticArmCode.git #robotic arm code 
+git clone https://github.com/anthonylamme/Scanner.git
+
 wget https://raw.githubusercontent.com/tbird20d/grabserial/master/grabserial grabserial  #serial reader/writer for data collection
 sudo echo "echo "Loading starting programs"" >> /home/pi/.bashrc
 sudo echo "sudo bash /home/pi/Scripts/RaspberryPIScripts/UpdateGit.bash" >> /home/pi/.bashrc #places updategit to start at start up
 
 echo "Which Project do you want to run?"
-select pr in "RobotArm" "Pick2Light" "Standard"; do
+select pr in "RobotArm" "Pick2Light" "Standard" "Scanner"; do
     case $pr in
       RobotArm) 
         echo "Be the Arm"
@@ -75,6 +77,11 @@ select pr in "RobotArm" "Pick2Light" "Standard"; do
       Standard) 
 	echo "Get the Scrap"
 	sudo echo "sudo bash /home/pi/Scripts/RaspberryPIScripts/SlackBot/Slack.bash" >> /home/pi/.bashrc #slackbot start up bash
+	break;;
+      Scanner)
+    	echo "Scanner for hire"
+    	sudo echo "sudo bash /home/pi/Scripts/RaspberryPIScripts/SlackBot/Slack.bash" >> /home/pi/.bashrc #slackbot start up bash
+    	sudo echo "sudo bash /home/pi/Scripts/Scanner/Scanner.bash" >> /home/pi/.bashrc #slackbot start up bash
 	break;;
     esac
 done
