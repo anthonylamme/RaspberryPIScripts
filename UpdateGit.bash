@@ -7,6 +7,8 @@ echo "Updating Pi"
 
 sudo apt-get update #update OS
 
+cd /home/pi/Scripts/Scanner
+git pull
 cd /home/pi/Scripts/Pick2Light #change to Pick2Light folder
 git pull #pulls recent version from gitHub
 cd /home/pi/Scripts/RaspberryPIScripts #change to Rasberry PI Script folder
