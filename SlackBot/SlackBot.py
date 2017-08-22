@@ -13,9 +13,8 @@ import json #handler for JSON files
 import psutil #CPU/Memory utility
 import BotOps as OPS #Custom Library for commands
 import requests as req #maybe used to pull files from slack to update system
-
-
 from slackclient import SlackClient #the slack Client Library
+
 MainFolder='/home/pi/SlackData/'
 TokenAdd=MainFolder+'Tokens/Token.txt'
 
@@ -23,20 +22,22 @@ TokenAdd=MainFolder+'Tokens/Token.txt'
 file_obj=open(TokenAdd,'r')
 Number=file_obj.readline().rstrip('\n')
 myName=file_obj.readline().rstrip('\n')
-P2L_Token=file_obj.readline().rstrip('\n')
+Token=file_obj.readline().rstrip('\n')
 file_obj.close()
 
 csv_path=MainFolder+'ItemList.csv'
 json_path=MainFolder+'JSONData/Order.json'
 
+print Number
 print myName #sanity check to ensure write information is pulled from file
-print P2L_Token
+print Token
 
 Report_Path=MainFolder+'Data.zip' #file information for data transmission from Pick2light to Admin. 
-slack_client =SlackClient(P2L_Token)
+slack_client =SlackClient(Token)
 
 user_list = slack_client.api_call("users.list") #files self on user list. if there is a error with this line it is the Token not the code
 for user in user_list.get('members'):
+    print user.get('name')
     if user.get('name') == myName: #makes sure it has its name as a id
         slack_user_id = user.get('id') #retrieves slack encoded id
         break
