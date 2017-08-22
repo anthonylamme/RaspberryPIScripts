@@ -34,6 +34,8 @@ sudo apt-get -y install screen -y
 #slack interface
 sudo pip install slackclient
 sudo pip install psutil 
+sudo pip install selenium
+sudo pip install requests
 #cmdline tool
 sudo apt-get -y install moreutils  #allows for commands that help with zip files and other
 sudo apt-get -y install zip 
