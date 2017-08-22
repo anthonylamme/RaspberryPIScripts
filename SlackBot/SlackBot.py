@@ -123,7 +123,7 @@ if slack_client.rtm_connect():#connects to slack client
                     OPS.RestartOp(10)#function from BotOPS to restart system needs number of seconds till restart
                           
                 if re.match(r'.*(send).*',message_text,re.IGNORECASE): #command to send contents of data folder
-                    os.system('zip %s %s'%(Report_Path,(MainFolder+'Data'),) #zips data folder for transmission
+                    os.system('zip %s %s'%(Report_Path,(MainFolder+'Data'))) #zips data folder for transmission
                     
                     slack_client.api_call(
                         "chat.postMessage",
