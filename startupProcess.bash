@@ -32,8 +32,8 @@ sudo apt-get -y install mysql-server mysql-client
 #tool for ssh
 sudo apt-get -y install screen -y
 #slack interface
-sudo pip install slackclient 
-sudo pip install psutil
+sudo pip install slackclient
+sudo pip install psutil 
 #cmdline tool
 sudo apt-get -y install moreutils  #allows for commands that help with zip files and other
 sudo apt-get -y install zip 
@@ -47,11 +47,17 @@ sudo easy_install xlsx2csv
 echo "Hi, $USER! starting folder"
 mkdir /home/pi/Scripts #makes central folder for repositories
 cd /home/pi/Scripts
-
+sudo chown -R pi /home/pi/Scripts
 git clone https://github.com/anthonylamme/RaspberryPIScripts.git #general use scripts containing startup,update and git update
 git clone https://github.com/anthonylamme/Pick2Light.git #Pick2Light project programs
 git clone https://github.com/anthonylamme/RoboticArmCode.git #robotic arm code 
 git clone https://github.com/anthonylamme/Scanner.git
+
+mkdir /home/pi/SlackData #makes central folder for repositories
+mkdir /home/pi/SlackData/Tokens
+mkdir /home/pi/SlackData/Data
+mkdir /home/pi/SlackData/JSONData
+sudo chown -R pi /home/pi/SlackData
 
 wget https://raw.githubusercontent.com/tbird20d/grabserial/master/grabserial grabserial  #serial reader/writer for data collection
 sudo echo "echo "Loading starting programs"" >> /home/pi/.bashrc
@@ -63,32 +69,25 @@ select pr in "RobotArm" "Pick2Light" "Standard" "Scanner"; do
       RobotArm) 
         echo "Be the Arm"
         break;; 
-      Pick2Light) 
         
-	echo "Pick the Light" #creates token folder and data folder for use with slackclient and data collection
-	cd /home/pi/P2LightData
-	cd /home/pi/P2LightData/Tokens
-	cd /home/pi/P2LightData/Data
-	cd /home/pi/P2LightData/JSONData
-
-	sudo echo "sudo bash /home/pi/Scripts/Pick2Light/RaspberryPiCode/Pick2Light.bash" >> /home/pi/.bashrc #allows Pick2Light to run at start u
+      Pick2Light) 
+        echo "Pick the Light" #creates token folder and data folder for use with slackclient and data collection
+        sudo echo "sudo bash /home/pi/Scripts/Pick2Light/RaspberryPiCode/Pick2Light.bash" >> /home/pi/.bashrc #allows Pick2Light to run at start u
         sudo echo "sudo bash /home/pi/Scripts/RaspberryPIScripts/SlackBot/Slack.bash" >> /home/pi/.bashrc #allows for Slack Bot to run at start up
-
-	break;;
+        break;;
+      
       Standard) 
-	echo "Get the Scrap"
-	sudo echo "sudo bash /home/pi/Scripts/RaspberryPIScripts/SlackBot/Slack.bash" >> /home/pi/.bashrc #slackbot start up bash
-	break;;
+        echo "Get the Scrap"
+        sudo echo "sudo bash /home/pi/Scripts/RaspberryPIScripts/SlackBot/Slack.bash" >> /home/pi/.bashrc #slackbot start up bash
+        break;;
+      
       Scanner)
     	echo "Scanner for hire"
-	cd /home/pi/Scanner
-	cd /home/pi/Scanner/Tokens
-	cd /home/pi/Scanner/Data
     	sudo echo "sudo bash /home/pi/Scripts/RaspberryPIScripts/SlackBot/Slack.bash" >> /home/pi/.bashrc #slackbot start up bash
     	sudo echo "sudo bash /home/pi/Scripts/Scanner/Scanner.bash" >> /home/pi/.bashrc #slackbot start up bash
-	break;;
+        break;;
+    
     esac
 done
 
 echo "Finished"
-sudo reboot #reboots to finalize installs
