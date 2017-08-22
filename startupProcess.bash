@@ -18,8 +18,8 @@ sudo apt-get -y install vim
 sudo apt-get -y install espeak
 #program arduinos
 sudo apt-get -y install arduino
-sudo apt-get install python #updates python compiler
-sudo apt-get install python-serial #allows for serial monitoring
+sudo apt-get -y install python #updates python compiler
+sudo apt-get -y install python-serial #allows for serial monitoring
 #time update
 sudo apt-get -y install ntpdate #retrieves time and date informaton from internet
 #possible use later for cluster monitoring
@@ -28,19 +28,20 @@ sudo apt-get -y install nodejs
 sudo apt-get -y install apache2 apache2-doc apache2-utils
 sudo apt-get -y install libapache2-mod-php5 php5 php-pear php5-xcache
 sudo apt-get -y install php5-mysql
-sudo apt-get install mysql-server mysql-client
+sudo apt-get -y install mysql-server mysql-client
 #tool for ssh
 sudo apt-get -y install screen -y
 #slack interface
 sudo pip install slackclient 
+sudo pip install psutil
 #cmdline tool
-sudo apt-get install moreutils  #allows for commands that help with zip files and other
-sudo apt-get install zip 
+sudo apt-get -y install moreutils  #allows for commands that help with zip files and other
+sudo apt-get -y install zip 
 
-sudo apt-get install i2c-tools # enables i2c check tools
-sudo apt-get install python-smbus #turns on the python bus for i2c
+sudo apt-get -y install i2c-tools # enables i2c check tools
+sudo apt-get -y install python-smbus #turns on the python bus for i2c
 
-sudo apt-get install python-dev python-rpi.gpio #library used for GPIO controll
+sudo apt-get -y install python-dev python-rpi.gpio #library used for GPIO controll
 sudo easy_install xlsx2csv
 
 echo "Hi, $USER! starting folder"
