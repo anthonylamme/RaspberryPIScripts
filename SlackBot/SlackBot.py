@@ -40,6 +40,7 @@ for user in user_list.get('members'):
     print user.get('name')
     if user.get('name') == myName: #makes sure it has its name as a id
         slack_user_id = user.get('id') #retrieves slack encoded id
+        print user.get('id')
         break
     
 if slack_client.rtm_connect():#connects to slack client
