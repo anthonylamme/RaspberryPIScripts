@@ -16,20 +16,23 @@ import requests as req #maybe used to pull files from slack to update system
 
 
 from slackclient import SlackClient #the slack Client Library
+MainFolder='/home/pi/SlackData/'
+TokenAdd=MainFolder+'Tokens/Token.txt'
 
-file_obj=open('/home/pi/P2LightData/Tokens/Token.txt','r')
+
+file_obj=open(TokenAdd,'r')
 Number=file_obj.readline().rstrip('\n')
 myName=file_obj.readline().rstrip('\n')
 P2L_Token=file_obj.readline().rstrip('\n')
 file_obj.close()
 
-csv_path='/home/pi/P2LightData/ItemList.csv'
-json_path='/home/pi/P2LightData/JSONData/Order.json'
+csv_path=MainFolder+'ItemList.csv'
+json_path=MainFolder+'JSONData/Order.json'
 
 print myName #sanity check to ensure write information is pulled from file
 print P2L_Token
 
-path="/home/pi/P2LightData/Data.zip" #file information for data transmission from Pick2light to Admin. 
+Report_Path=MainFolder+'Data.zip' #file information for data transmission from Pick2light to Admin. 
 slack_client =SlackClient(P2L_Token)
 
 user_list = slack_client.api_call("users.list") #files self on user list. if there is a error with this line it is the Token not the code
@@ -60,7 +63,7 @@ if slack_client.rtm_connect():#connects to slack client
 
                     file_name=file_name.replace(' ','')
                     
-                    pathway='/home/pi/P2LightData/%s'%file_name
+                    pathway=MainFolder+'%s'%file_name
                     
                     print "%s file needs formating"%file_name
                     
@@ -72,10 +75,10 @@ if slack_client.rtm_connect():#connects to slack client
 
                 elif file_type == 'javascript':
                     
-                    pathway='/home/pi/P2LightData/JSONData/Order.json'
+                    #pathway='/home/pi/SlackData/JSONData/Order.json'
                     
                     file2b=req.get(file_info,headers={'Authorization': 'Bearer %s'%P2L_Token})
-                    with open(pathway,'wb') as f:
+                    with open(json_path,'wb') as f:
                         f.write(file2b.content)
                         
                     slack_client.api_call(
@@ -120,7 +123,7 @@ if slack_client.rtm_connect():#connects to slack client
                     OPS.RestartOp(10)#function from BotOPS to restart system needs number of seconds till restart
                           
                 if re.match(r'.*(send).*',message_text,re.IGNORECASE): #command to send contents of data folder
-                    os.system('zip /home/pi/P2LightData/Data.zip /home/pi/P2LightData/Data') #zips data folder for transmission
+                    os.system('zip %s %s'%(Report_Path,(MainFolder+'Data'),) #zips data folder for transmission
                     
                     slack_client.api_call(
                         "chat.postMessage",
@@ -132,8 +135,8 @@ if slack_client.rtm_connect():#connects to slack client
                     slack_client.api_call(
                         "files.upload",
                         channels=message['channel'],
-                        file=open(path,'rb'),
-                        filename='/home/pi/P2LightData/Data.zip',
+                        file=open(Report_Path,'rb'),
+                        filename='%s'%Report_Path,
                         filetype='auto',
                         initail_comment='\n Here you go') #uploads file
                           
