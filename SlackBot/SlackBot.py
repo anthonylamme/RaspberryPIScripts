@@ -44,7 +44,7 @@ for user in user_list.get('members'):
     
 if slack_client.rtm_connect():#connects to slack client
     print "Connected" #sanity check
-    slack_client.rtm_send_message('allpis',"%s here"%myName) #will notify all channel that its online
+    slack_client.rtm_send_message('allpis',"%s here"%Number) #will notify all channel that its online
     
     while True:
         for message in slack_client.rtm_read(): #for every message in the client while its reading
