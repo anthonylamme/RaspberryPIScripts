@@ -40,12 +40,10 @@ for user in user_list.get('members'):
     
 if slack_client.rtm_connect():#connects to slack client
     print "Connected" #sanity check
-    slack_client.rtm_send_message('allpis',"%s here"%Number) #will notify all channel that its online
+    slack_client.rtm_send_message('allpis',"%s here"%myName) #will notify all channel that its online
     
     while True:
         for message in slack_client.rtm_read(): #for every message in the client while its reading
-
-            print "Message received: %s" % json.dumps(message, indent=2) #prints json file on cmdline form
 
             if 'file' in message and 'url_private' in message['file']:
                 print "File received: %s" % json.dumps(message, indent=2)
@@ -211,15 +209,23 @@ if slack_client.rtm_connect():#connects to slack client
                         channel=message['channel'],
                         text="\n My Cell number is %s"%Number,
                         as_user=True)
-                if re.match(r'.*(recieved).*',message_text,re.IGNORECASE): #will be used to check for recieving files
+                    
+                if re.match(r'.*(name).*',message_text,re.IGNORECASE): #will be used to check for recieving files
 
                     slack_client.api_call(
                         "chat.postMessage",
                         channel=message['channel'],
-                        text="\n checking",
+                        text="\n my name is %s. How can I help?"%myName,
                         as_user=True)
                     
-
+                if re.match(r'.*(monitor).*',message_text,re.IGNORECASE): #will monitor serial input from Pi
+                    
+                    slack_client.api_call(
+                        "chat.postMessage",
+                        channel=message['channel'],
+                        text="\n Monitoring",
+                        as_user=True)
+              
                     
             time.sleep(1)#wait a second  between messages to give user time to send command
 
