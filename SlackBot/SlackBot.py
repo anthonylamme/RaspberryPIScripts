@@ -37,7 +37,7 @@ slack_client =SlackClient(Token)
 
 user_list = slack_client.api_call("users.list") #files self on user list. if there is a error with this line it is the Token not the code
 for user in user_list.get('members'):
-    if user.get('name').decode(encoding='utf-8',errors='strict') == myName.decode(encoding='utf-8',errors='strict'): #makes sure it has its name as a id
+    if user.get('name') == 'printscannerpi1': #makes sure it has its name as a id
         slack_user_id = user.get('id') #retrieves slack encoded id
         print user.get('id')
         break
