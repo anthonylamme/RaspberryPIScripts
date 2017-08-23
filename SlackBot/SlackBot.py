@@ -20,9 +20,9 @@ TokenAdd=MainFolder+'Tokens/Token.txt'
 
 
 file_obj=open(TokenAdd,'r')
-Number=file_obj.readline().rstrip('\n')
-myName=file_obj.readline().rstrip('\n')
-Token=file_obj.readline().rstrip('\n')
+Number=file_obj.readline().rstrip('\n').strip(' ')
+myName=file_obj.readline().rstrip('\n').strip(' ')
+Token=file_obj.readline().rstrip('\n').strip(' ')
 file_obj.close()
 
 csv_path=MainFolder+'ItemList.csv'
@@ -37,8 +37,7 @@ slack_client =SlackClient(Token)
 
 user_list = slack_client.api_call("users.list") #files self on user list. if there is a error with this line it is the Token not the code
 for user in user_list.get('members'):
-    print user.get('name')
-    if user.get('name') == 'printscannerpi1': #makes sure it has its name as a id
+    if user.get('name') == myName: #makes sure it has its name as a id
         slack_user_id = user.get('id') #retrieves slack encoded id
         print user.get('id')
         break
