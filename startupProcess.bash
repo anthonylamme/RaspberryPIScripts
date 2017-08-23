@@ -33,12 +33,11 @@ sudo apt-get -y install screen -y
 #slack interface
 sudo pip install slackclient
 sudo pip install psutil 
-sudo pip install selenium
 sudo pip install requests
 sudo pip install pyvirtualdisplay selenium
 sudo apt-get install iceweasel
 sudo apt-get install python-pip iceweasel xvfb
-
+sudo pip install mechanize
 wget https://github.com/mozilla/geckodriver/releases/download/v0.18.0/geckodriver-v0.18.0-arm7hf.tar.gz
 cd /usr/bin/firefox
 sudo tar -xvzf /home/pi/geckodriver-v0.18.0-arm7hf.tar.gz
@@ -56,11 +55,12 @@ sudo easy_install xlsx2csv
 echo "Hi, $USER! starting folder"
 mkdir /home/pi/Scripts #makes central folder for repositories
 cd /home/pi/Scripts
-sudo chown -R pi /home/pi/Scripts
+
 git clone https://github.com/anthonylamme/RaspberryPIScripts.git #general use scripts containing startup,update and git update
 git clone https://github.com/anthonylamme/Pick2Light.git #Pick2Light project programs
 git clone https://github.com/anthonylamme/RoboticArmCode.git #robotic arm code 
 git clone https://github.com/anthonylamme/Scanner.git
+sudo chown -R pi /home/pi/Scripts
 
 mkdir /home/pi/SlackData #makes central folder for repositories
 mkdir /home/pi/SlackData/Tokens
@@ -92,8 +92,7 @@ select pr in "RobotArm" "Pick2Light" "Standard" "Scanner"; do
       
       Scanner)
     	echo "Scanner for hire"
-    	sudo echo "sudo bash /home/pi/Scripts/RaspberryPIScripts/SlackBot/Slack.bash" >> /home/pi/.bashrc #slackbot start up bash
-    	sudo echo "sudo bash /home/pi/Scripts/Scanner/Scanner.bash" >> /home/pi/.bashrc #slackbot start up bash
+    	sudo echo "sudo bash /home/pi/Scripts/RaspberryPIScripts/SlackBot/Slack.bash & /home/pi/Scripts/Scanner/Scanner.bash && fg" >> /home/pi/.bashrc #slackbot start up bash
         break;;
     
     esac
