@@ -2,7 +2,6 @@
 #!/bin/bash
 newHome=/home/pi/scripts
 echo "Starting Script"
-
 echo "Hi, $USER! starting network"
 #networking
 
@@ -36,6 +35,14 @@ sudo pip install slackclient
 sudo pip install psutil 
 sudo pip install selenium
 sudo pip install requests
+sudo pip install pyvirtualdisplay selenium
+sudo apt-get install iceweasel
+sudo apt-get install python-pip iceweasel xvfb
+
+wget https://github.com/mozilla/geckodriver/releases/download/v0.18.0/geckodriver-v0.18.0-arm7hf.tar.gz
+cd /usr/bin/firefox
+sudo tar -xvzf /home/pi/geckodriver-v0.18.0-arm7hf.tar.gz
+
 #cmdline tool
 sudo apt-get -y install moreutils  #allows for commands that help with zip files and other
 sudo apt-get -y install zip 
