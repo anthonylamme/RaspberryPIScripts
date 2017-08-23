@@ -41,7 +41,9 @@ for user in user_list.get('members'):
         slack_user_id = user.get('id') #retrieves slack encoded id
         print user.get('id')
         break
-    
+    else:
+        print user.get('name')
+        print myName
 if slack_client.rtm_connect():#connects to slack client
     print "Connected" #sanity check
     slack_client.rtm_send_message('allpis',"%s here"%Number) #will notify all channel that its online
