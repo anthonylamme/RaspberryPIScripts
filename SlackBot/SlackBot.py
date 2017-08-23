@@ -88,6 +88,15 @@ if slack_client.rtm_connect():#connects to slack client
                         channel=message['channel'],
                         text="\n Thank you for your order",
                         as_user=True)
+                
+                elif file_type == 'zip':
+                    
+                    slack_client.api_call(
+                        "chat.postMessage",
+                        channel=message['channel'],
+                        text="\n Here is the report",
+                        as_user=True)
+                    
                 else:
 
                     slack_client.api_call(
