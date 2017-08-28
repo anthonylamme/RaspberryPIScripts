@@ -28,9 +28,9 @@ file_obj.close()
 csv_path=MainFolder+'ItemList.csv'
 json_path=MainFolder+'JSONData/Order.json'
 
-print Number
-print myName #sanity check to ensure write information is pulled from file
-print Token
+#print Number
+#print myName #sanity check to ensure write information is pulled from file
+#print Token
 
 Report_Path=MainFolder+'Data.zip' #file information for data transmission from Pick2light to Admin. 
 slack_client =SlackClient(Token)
@@ -39,20 +39,20 @@ user_list = slack_client.api_call("users.list") #files self on user list. if the
 for user in user_list.get('members'):
     if user.get('name') == 'printscannerpi1': #makes sure it has its name as a id
         slack_user_id = user.get('id') #retrieves slack encoded id
-        print user.get('id')
+        #print user.get('id')
         break
     else:
-        print myName.decode(encoding='utf-8',errors='strict')
-        print user.get('name')
+        #print myName.decode(encoding='utf-8',errors='strict')
+        #print user.get('name')
 if slack_client.rtm_connect():#connects to slack client
-    print "Connected" #sanity check
+    #print "Connected" #sanity check
     slack_client.rtm_send_message('allpis',"%s here"%Number) #will notify all channel that its online
     
     while True:
         for message in slack_client.rtm_read(): #for every message in the client while its reading
 
             if 'file' in message and 'url_private' in message['file']:
-                print "File received: %s" % json.dumps(message, indent=2)
+                #print "File received: %s" % json.dumps(message, indent=2)
                 file_info=message['file']['url_private'].strip()
                 file_type=message['file']['filetype'].strip()
                 file_name=message['file']['name'].strip()
@@ -68,7 +68,7 @@ if slack_client.rtm_connect():#connects to slack client
                     
                     pathway=MainFolder+'%s'%file_name
                     
-                    print "%s file needs formating"%file_name
+                    #print "%s file needs formating"%file_name
                     
                     file2b=req.get(file_info,headers={'Authorization': 'Bearer %s'%P2L_Token})
                     with open(pathway,'wb') as f:
@@ -108,7 +108,7 @@ if slack_client.rtm_connect():#connects to slack client
                 
             if 'text' in message and message['text'].startswith("<@%s>"%slack_user_id): # if text has the @user id:
                 
-                print "Message received: %s" % json.dumps(message, indent=2) #prints json file on cmdline for checking
+                #print "Message received: %s" % json.dumps(message, indent=2) #prints json file on cmdline for checking
                 
                 message_text = message['text'].\
                     split("<@%s>" % slack_user_id)[1].\
