@@ -8,7 +8,7 @@ and the third line with the token for the slackbot.
 
 import re #used to compare incoming text with pattern
 import os # library for commanding OS and file retrieval
-import time #pull time data from pi
+import time as t#pull time data from pi
 import json #handler for JSON files
 import psutil #CPU/Memory utility
 import BotOps as OPS #Custom Library for commands
@@ -239,6 +239,15 @@ if slack_client.rtm_connect():#connects to slack client
                         "chat.postMessage",
                         channel=message['channel'],
                         text="\n Monitoring",
+                        as_user=True)
+                    
+                if re.match(r'.*(date).*',message_text,re.IGNORECASE): #will monitor serial input from Pi
+                    date=t.localtime(t.time())
+                    outputDate='%d_%d_%d'%(date[1],date[2],(date[0]%100))
+                    slack_client.api_call(
+                        "chat.postMessage",
+                        channel=message['channel'],
+                        text="\n the date is %s"%outputDate,
                         as_user=True)
               
                     
