@@ -92,7 +92,7 @@ select pr in "RobotArm" "Pick2Light" "Standard" "Scanner"; do
       
       Scanner)
     	echo "Scanner for hire"
-    	sudo echo "sudo bash /home/pi/Scripts/RaspberryPIScripts/SlackBot/Slack.bash & /home/pi/Scripts/Scanner/Scanner.bash && fg" >> /home/pi/.bashrc #slackbot start up bash
+    	sudo echo "sudo bash /home/pi/Scripts/RaspberryPIScripts/SlackBot/Slack.bash & /home/pi/Scripts/Scanner/Scanner.bash" >> /home/pi/.bashrc #slackbot start up bash
         break;;
     
     esac
