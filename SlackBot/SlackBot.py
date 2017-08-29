@@ -20,9 +20,9 @@ TokenAdd=MainFolder+'Tokens/Token.txt'
 
 
 file_obj=open(TokenAdd,'r')
-Number=file_obj.readline().rstrip('\n').strip(' ')
-myName=file_obj.readline().rstrip('\n').strip(' ')
-Token=file_obj.readline().rstrip('\n').strip(' ')
+Number=file_obj.readline().rstrip().strip(' ')
+myName=file_obj.readline().rstrip().strip(' ')
+Token=file_obj.readline().rstrip().strip(' ')
 file_obj.close()
 
 csv_path=MainFolder+'ItemList.csv'
