@@ -1,11 +1,7 @@
-#This Script will update the RPi every time it turns on or is Commanded to by Slack
-
 #!/bin/bash
-newHome=/home/pi/Scripts
+# Update the Raspberry Pi on reboot or when commanded to by Slack
 
-echo "Updating Pi"
-
-sudo apt-get update #update OS
+echo "Syncing local project repositories with remote..."
 
 cd /home/pi/Scripts/Scanner
 git pull
@@ -15,7 +11,5 @@ cd /home/pi/Scripts/RaspberryPIScripts #change to Rasberry PI Script folder
 git pull #pulls recent version from gitHub
 cd /home/pi/Scripts/RoboticArmCode #change to Robotic Arm Code folder
 git pull #pulls recent version from gitHub
-cd /home/pi/Scripts/RaspberryPIScripts
-git pull
 
-echo "finished at last"
+echo "Finished syncing repositories!"
